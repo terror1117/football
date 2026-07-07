@@ -1,0 +1,219 @@
+// ArenaMind AI — Prisma schema (SQLite)
+// FIFA World Cup 2026 · GenAI Stadium Assistant
+// Production-grade relational model covering fans, staff, stadiums,
+// matches, navigation, crowd, incidents, emergency, transportation,
+// notifications, AI chats, analytics, accessibility and sustainability.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  role         String   @default("fan") // fan | staff | organizer | volunteer | security | transport
+  lang         String   @default("en")
+  accessibility Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  chats        AiChat[]
+  notifications Notification[]
+  incidents    Incident[]  @relation("IncidentReporter")
+  activity     ActivityLog[]
+}
+
+model Stadium {
+  id          String   @id @default(cuid())
+  name        String
+  city        String
+  country     String
+  capacity    Int
+  lat         Float
+  lng         Float
+  gates       Int
+  createdAt   DateTime @default(now())
+
+  matches     Match[]
+  crowd       CrowdSnapshot[]
+  pois        StadiumPOI[]
+}
+
+model StadiumPOI {
+  id        String   @id @default(cuid())
+  stadiumId String
+  stadium   Stadium  @relation(fields: [stadiumId], references: [id], onDelete: Cascade)
+  name      String
+  type      String   // gate | food | restroom | exit | firstaid | parking | seat | shop
+  x         Float    // percentage 0-100
+  y         Float    // percentage 0-100
+  density   Int      @default(0) // 0-100
+  note      String?
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  stadiumId String
+  stadium   Stadium  @relation(fields: [stadiumId], references: [id])
+  home      String
+  away      String
+  homeFlag  String
+  awayFlag  String
+  stage     String   // Group | Round of 16 | Quarter | Semi | Final
+  kickoff   DateTime
+  status    String   @default("scheduled") // scheduled | live | final
+  score     String?
+  createdAt DateTime @default(now())
+}
+
+model Seat {
+  id        String   @id @default(cuid())
+  stadiumId String
+  section   String
+  row       String
+  number    String
+  tier      String   // standard | premium | vip | accessible
+  occupied  Boolean  @default(false)
+}
+
+model NavigationRoute {
+  id        String   @id @default(cuid())
+  stadiumId String
+  from      String
+  to        String
+  distance  Float    // meters
+  durationM Int      // minutes
+  accessible Boolean @default(false)
+  stepsJson String   // JSON-encoded step list
+}
+
+model CrowdSnapshot {
+  id        String   @id @default(cuid())
+  stadiumId String
+  stadium   Stadium  @relation(fields: [stadiumId], references: [id], onDelete: Cascade)
+  zone      String
+  density   Int      // 0-100
+  waitMin   Int
+  takenAt   DateTime @default(now())
+}
+
+model Incident {
+  id        String   @id @default(cuid())
+  stadiumId String?
+  severity  String   // low | medium | high | critical
+  title     String
+  zone      String
+  status    String   @default("active") // active | monitoring | resolved
+  reporterId String?
+  reporter  User?    @relation("IncidentReporter", fields: [reporterId], references: [id])
+  createdAt DateTime @default(now())
+  resolvedAt DateTime?
+}
+
+model Emergency {
+  id        String   @id @default(cuid())
+  userId    String?
+  type      String   // medical | security | fire | evacuation | other
+  location  String
+  status    String   @default("dispatched")
+  createdAt DateTime @default(now())
+  resolvedAt DateTime?
+  notes     String?
+}
+
+model Transportation {
+  id        String   @id @default(cuid())
+  stadiumId String
+  mode      String   // metro | bus | car | walk | rideshare
+  label     String
+  etaMin    Int
+  loadPct   Int
+  greenScore Int
+  cost      String
+  updatedAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  title     String
+  body      String
+  channel   String   @default("app") // app | sms | push | pa
+  priority  String   @default("info")
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AiChat {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  role      String   // user | assistant | system
+  content   String
+  lang      String   @default("en")
+  metaJson  String?
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  type      String   // ai | alert | system | staff | fan
+  title     String
+  detail    String
+  createdAt DateTime @default(now())
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  stadiumId String?
+  metric    String
+  value     Float
+  unit      String
+  bucket    String   // hourly bucket ISO
+  createdAt DateTime @default(now())
+}
+
+model Volunteer {
+  id        String   @id @default(cuid())
+  name      String
+  zone      String
+  skill     String
+  status    String   @default("on-duty")
+  phone     String?
+}
+
+model Staff {
+  id        String   @id @default(cuid())
+  name      String
+  role      String   // steward | medic | security | ops | transport
+  zone      String
+  status    String   @default("on-duty")
+}
+
+model AccessibilityRequest {
+  id        String   @id @default(cuid())
+  userId    String?
+  need      String   // wheelchair | sign-language | vision | hearing
+  location  String
+  status    String   @default("open")
+  createdAt DateTime @default(now())
+}
+
+model SustainabilityMetric {
+  id        String   @id @default(cuid())
+  stadiumId String?
+  label     String
+  value     Float
+  unit      String
+  target    Float
+  takenAt   DateTime @default(now())
+}

@@ -1,0 +1,368 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   ArenaMind AI — Brand Design System
+   FIFA World Cup 2026 · Premium GenAI Stadium Assistant
+   ============================================================ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-plus-jakarta), var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Brand palette */
+  --color-royal: var(--royal);
+  --color-royal-bright: var(--royal-bright);
+  --color-purple: var(--purple);
+  --color-cyan: var(--cyan);
+  --color-emerald: var(--emerald);
+  --color-gold: var(--gold);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 10px);
+  --radius-3xl: calc(var(--radius) + 20px);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* Football brand — Light mode (day-match pitch) */
+  --royal: #0b3d91;        /* Argentina navy trim */
+  --royal-bright: #3b82f6;
+  --purple: #6d28d9;
+  --cyan: #6cb4e4;         /* Argentina light blue */
+  --emerald: #009c3b;      /* Brazil green */
+  --gold: #f5c400;         /* Brazil yellow */
+
+  --background: oklch(0.985 0.012 150);
+  --foreground: oklch(0.18 0.03 155);
+  --card: oklch(0.995 0.006 150);
+  --card-foreground: oklch(0.18 0.03 155);
+  --popover: oklch(0.995 0.006 150);
+  --popover-foreground: oklch(0.18 0.03 155);
+  --primary: #009c3b;
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.014 150);
+  --secondary-foreground: oklch(0.2 0.03 155);
+  --muted: oklch(0.96 0.012 150);
+  --muted-foreground: oklch(0.48 0.02 155);
+  --accent: #f5c400;
+  --accent-foreground: oklch(0.18 0.03 155);
+  --destructive: oklch(0.577 0.245 27);
+  --border: oklch(0.9 0.014 150);
+  --input: oklch(0.92 0.012 150);
+  --ring: #009c3b;
+  --chart-1: #009c3b;
+  --chart-2: #f5c400;
+  --chart-3: #6cb4e4;
+  --chart-4: #0b3d91;
+  --chart-5: #d97706;
+  --sidebar: oklch(0.98 0.01 150);
+  --sidebar-foreground: oklch(0.18 0.03 155);
+  --sidebar-primary: #009c3b;
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.96 0.012 150);
+  --sidebar-accent-foreground: oklch(0.2 0.03 155);
+  --sidebar-border: oklch(0.9 0.014 150);
+  --sidebar-ring: #009c3b;
+}
+
+.dark {
+  /* Football brand — Dark mode (floodlit night match) */
+  --royal: #6cb4e4;
+  --royal-bright: #93c8ec;
+  --purple: #a855f7;
+  --cyan: #6cb4e4;
+  --emerald: #16c265;
+  --gold: #ffd400;
+
+  --background: oklch(0.21 0.034 158);   /* deep pitch green */
+  --foreground: oklch(0.97 0.012 95);
+  --card: oklch(0.255 0.03 158);
+  --card-foreground: oklch(0.97 0.012 95);
+  --popover: oklch(0.255 0.03 158);
+  --popover-foreground: oklch(0.97 0.012 95);
+  --primary: #ffd400;                    /* Brazil yellow */
+  --primary-foreground: oklch(0.16 0.03 158);
+  --secondary: oklch(0.31 0.026 158);
+  --secondary-foreground: oklch(0.97 0.012 95);
+  --muted: oklch(0.31 0.022 158);
+  --muted-foreground: oklch(0.74 0.02 95);
+  --accent: #6cb4e4;                     /* Argentina blue */
+  --accent-foreground: oklch(0.16 0.03 158);
+  --destructive: oklch(0.704 0.191 22);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: #ffd400;
+  --chart-1: #ffd400;
+  --chart-2: #6cb4e4;
+  --chart-3: #16c265;
+  --chart-4: #f97316;
+  --chart-5: #a855f7;
+  --sidebar: oklch(0.255 0.03 158);
+  --sidebar-foreground: oklch(0.97 0.012 95);
+  --sidebar-primary: #ffd400;
+  --sidebar-primary-foreground: oklch(0.16 0.03 158);
+  --sidebar-accent: oklch(0.31 0.022 158);
+  --sidebar-accent-foreground: oklch(0.97 0.012 95);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: #ffd400;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-cyan) 35%, transparent);
+    color: var(--foreground);
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--muted-foreground) 35%, transparent);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--muted-foreground) 55%, transparent);
+    background-clip: padding-box;
+  }
+}
+
+/* ============================================================
+   Utility classes — Glassmorphism · Gradients · Animations
+   ============================================================ */
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+
+  .text-gradient-brand {
+    background: linear-gradient(110deg, var(--emerald) 0%, var(--gold) 45%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .text-gradient-gold {
+    background: linear-gradient(110deg, var(--gold) 0%, #fff3b0 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .text-gradient-cyan {
+    background: linear-gradient(110deg, var(--cyan) 0%, var(--emerald) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Football brand gradient — Brazil green → yellow meets Argentina blue */
+  .bg-brand-gradient {
+    background: linear-gradient(120deg, var(--emerald) 0%, var(--gold) 48%, var(--cyan) 100%);
+  }
+  .bg-brand-gradient-soft {
+    background: linear-gradient(135deg,
+      color-mix(in oklab, var(--emerald) 16%, var(--background)) 0%,
+      color-mix(in oklab, var(--gold) 10%, var(--background)) 50%,
+      color-mix(in oklab, var(--cyan) 14%, var(--background)) 100%);
+  }
+
+  /* Mowed-grass stripes — the signature pitch texture */
+  .bg-grass {
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--emerald) 16%, var(--background)) 0,
+      color-mix(in oklab, var(--emerald) 16%, var(--background)) 22px,
+      var(--background) 22px,
+      var(--background) 44px
+    );
+  }
+  .bg-grass-dark {
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--emerald) 26%, transparent) 0,
+      color-mix(in oklab, var(--emerald) 26%, transparent) 28px,
+      transparent 28px,
+      transparent 56px
+    );
+  }
+
+  /* Pitch-line grid — like the markings on a pitch */
+  .bg-pitch-lines {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--foreground) 14%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 14%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center;
+    mask-image: radial-gradient(ellipse 75% 60% at 50% 45%, #000 35%, transparent 100%);
+  }
+
+  /* Stadium floodlight cones */
+  .bg-floodlights {
+    background-image:
+      radial-gradient(ellipse 40% 55% at 15% -5%, color-mix(in oklab, var(--gold) 22%, transparent) 0px, transparent 60%),
+      radial-gradient(ellipse 40% 55% at 50% -5%, color-mix(in oklab, var(--cyan) 18%, transparent) 0px, transparent 60%),
+      radial-gradient(ellipse 40% 55% at 85% -5%, color-mix(in oklab, var(--gold) 22%, transparent) 0px, transparent 60%);
+  }
+  .bg-mesh {
+    background-image:
+      radial-gradient(at 18% 12%, color-mix(in oklab, var(--royal) 30%, transparent) 0px, transparent 45%),
+      radial-gradient(at 82% 8%, color-mix(in oklab, var(--purple) 28%, transparent) 0px, transparent 42%),
+      radial-gradient(at 75% 78%, color-mix(in oklab, var(--cyan) 26%, transparent) 0px, transparent 45%),
+      radial-gradient(at 20% 85%, color-mix(in oklab, var(--emerald) 22%, transparent) 0px, transparent 42%);
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 6%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: color-mix(in oklab, var(--card) 62%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+  }
+  .glass-strong {
+    background: color-mix(in oklab, var(--card) 80%, transparent);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+  }
+  .glass-nav {
+    background: color-mix(in oklab, var(--background) 70%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
+  }
+
+  .shadow-glow { box-shadow: 0 0 0 1px color-mix(in oklab, var(--cyan) 20%, transparent), 0 18px 60px -18px color-mix(in oklab, var(--cyan) 55%, transparent); }
+  .shadow-glow-purple { box-shadow: 0 0 0 1px color-mix(in oklab, var(--purple) 20%, transparent), 0 18px 60px -18px color-mix(in oklab, var(--purple) 55%, transparent); }
+  .shadow-glow-gold { box-shadow: 0 0 0 1px color-mix(in oklab, var(--gold) 25%, transparent), 0 18px 60px -18px color-mix(in oklab, var(--gold) 50%, transparent); }
+  .shadow-float { box-shadow: 0 24px 70px -24px color-mix(in oklab, var(--royal) 45%, transparent), 0 8px 24px -12px color-mix(in oklab, var(--purple) 30%, transparent); }
+  .shadow-soft { box-shadow: 0 10px 40px -16px color-mix(in oklab, var(--foreground) 22%, transparent); }
+
+  .ring-brand { box-shadow: 0 0 0 1px color-mix(in oklab, var(--cyan) 35%, transparent), inset 0 0 0 1px color-mix(in oklab, var(--foreground) 6%, transparent); }
+
+  /* Gradient border card */
+  .border-gradient {
+    position: relative;
+    background: var(--card);
+    border-radius: var(--radius-2xl);
+  }
+  .border-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, color-mix(in oklab, var(--royal) 60%, transparent), color-mix(in oklab, var(--cyan) 60%, transparent), color-mix(in oklab, var(--purple) 50%, transparent));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+
+  /* Animations */
+  @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+  .animate-float { animation: float-y 7s ease-in-out infinite; }
+  @keyframes float-y-slow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-22px); } }
+  .animate-float-slow { animation: float-y-slow 11s ease-in-out infinite; }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(0.85); opacity: 0.7; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+  .animate-pulse-ring { animation: pulse-ring 2.6s cubic-bezier(0.2, 0.6, 0.2, 1) infinite; }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--foreground) 10%, transparent) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  @keyframes gradient-pan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  .animate-gradient-pan { background-size: 220% 220%; animation: gradient-pan 9s ease infinite; }
+
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+  .animate-spin-slow { animation: spin-slow 26s linear infinite; }
+  .animate-spin-rev { animation: spin-slow 38s linear infinite reverse; }
+
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .animate-marquee { animation: marquee 32s linear infinite; }
+
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+  .animate-blink { animation: blink 1.4s steps(1) infinite; }
+
+  @keyframes drift {
+    0% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(30px,-20px) scale(1.06); }
+    66% { transform: translate(-20px,18px) scale(0.96); }
+    100% { transform: translate(0,0) scale(1); }
+  }
+  .animate-drift { animation: drift 18s ease-in-out infinite; }
+
+  .mask-fade-r { mask-image: linear-gradient(to right, #000 80%, transparent 100%); }
+  .mask-fade-b { mask-image: linear-gradient(to bottom, #000 70%, transparent 100%); }
+}
